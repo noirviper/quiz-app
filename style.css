@@ -1,0 +1,15 @@
+body {
+  box-sizing: border-box;
+  overflow-x: hidden;
+}
+* {
+  box-sizing: inherit;
+}
+section {
+  margin: 20px auto;
+  width: 100%;
+  max-width: 900px;
+  border: 1px solid black;
+  padding: 10px
+}
+img {margin: 0 auto;}
