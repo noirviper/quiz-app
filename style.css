@@ -5,6 +5,7 @@ body {
 * {
   box-sizing: inherit;
 }
+header {text-align: center;}
 section {
   margin: 20px auto;
   width: 100%;
