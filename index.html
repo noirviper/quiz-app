@@ -15,18 +15,21 @@
     </header>
     <main role="main">
       <section class="progress-container">
-        <div class="progress-bar">
-          <p>Displays quiz progress</p>
-        </div>
+        <div class="progress-bar"></div>
+        <span class="circle q1">1</span>
+        <span class="circle q2">2</span>
+        <span class="circle q3">3</span>
+        <span class="circle q4">4</span>
+        <span class="circle q5">5</span>
+        <span class="circle q6">6</span>
+        <span class="circle q7">7</span>
       </section>
       <section class="question-container">
-        
+        <form class="questions"></form>
       </section>
 
       <section class="feedback-popup">
-        <img src="" alt="feedback image">
-        <div class="feedback-text"><p>Feedback on your answer</p></div>
-        <button type="button" class="next-question">Next Question</button>
+        
       </section>
 
       <section class="results-container">
@@ -36,6 +39,7 @@
       </section>
     </main>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.4.1/jquery.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/gsap@3.0.4/dist/gsap.min.js"></script>
     <script src="index.js"></script>
   </body>
 </html>
