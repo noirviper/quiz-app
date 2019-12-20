@@ -30,8 +30,8 @@ progressTL
 
 
 const imagesArr = [
-  "/images/dm.jpg",
-  "/images/evil-dm.jpg"
+  "images/dm.jpg",
+  "images/evil-dm.jpg"
 ];
 
 const responseArr = [
