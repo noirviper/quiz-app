@@ -128,7 +128,7 @@ function submitQuestion() {
 
 //update question user is on
 function updateProgress() {
-  console.log(questionSTORE.length);
+  
   if(questionCount >= questionSTORE.length-1) {
     questionCount = 0;
     
@@ -158,7 +158,7 @@ function nextQuestion() {
 
 function updateScore(obj,ind) {
     obj[ind].value += 1;
-    console.log(obj);
+    
 }
 
 //render quiz
@@ -178,3 +178,50 @@ function initQuiz(){
 }
 
 $(initQuiz);
+
+
+/*var obj = [
+    {
+        class: "Cleric",
+        value: 1
+    },
+    {
+        class: "Fighter",
+        value:  0
+    },
+    {
+        class: "Rouge",
+        value : 5
+    },
+    {
+        class: "Wizard",
+        value : 0
+    }
+];
+function calcResult(obj) {
+  let largest = obj[0].value;
+  let result = "";
+  for (i = 0; i < obj.length-1; i++) {
+
+    for(j = 1; j < obj.length-1; j++) {
+    
+      if(largest > obj[j].value) {
+        
+      } else {
+        largest = obj[j].value;
+        result = obj[j].class;
+      }
+    }
+
+  displayResults(result);
+}
+
+function displayResults(str) {
+  let img = str.toLowerCase()+".png";
+  results.append(`<img src="/images/${img}" alt="results image">
+        <p class="results-feedback">Your Fantasy RPG class is: ${str}</p>
+        <button type="button" class="start-quiz">Take Quiz Again?</button>`);
+}
+
+  
+}*/
