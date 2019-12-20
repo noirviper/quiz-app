@@ -68,11 +68,6 @@ const questionSTORE = [
         "answers" : ["Stab them in the back","Find the nearest weapon and get to work","Light everything on fire","Pray for divine intervention"]
     },
     {
-        "question" : "Which of these would be an ideal weekend activity?",
-        "values" : [0, 2, 1, 3],
-        "answers" : ["Go to Church","Plan a huge heist","Workout and practice MMA techniques","Study"]
-    },
-    {
         "question" : "A monster jumps out of the shadows, you draw your weapon. What is it?",
         "values" : [1, 3, 0, 2],
         "answers" : ["A sword","A spell book","A mace","A dagger"]
