@@ -3,30 +3,29 @@ let questionCount = 0;
 let submitBtn = $('.submit-btn');
 let feedback = $('.feedback-popup');
 let results = $('.results-container');
-let progressTL = gsap.timeline();
+let progressTL = gsap.timeline({paused:true});
 
 progressTL
-  .fromTo($('.progress-bar'), 0.3, {width:0}, {width:"10%"})
-  .to($(".q1"), {background: "black"})
+  .to($('.progress-bar'), 0.3, {width:"83%", delay:1.5})
+  .to($(".q1"), {color: "white", textShadow: "2px 2px black"})
   .addPause()
-  .to($('.progress-bar'), 0.3, {width:"25%"})
-  .to($(".q2"), {background: "black"})
+  .to($('.progress-bar'), 0.3, {width:"68%"})
+  .to($(".q2"), {color: "white", textShadow: "2px 2px black"})
   .addPause()
-  .to($('.progress-bar'), 0.3, {width:"37%"})
-  .to($(".q3"), {background: "black"})
+  .to($('.progress-bar'), 0.3, {width:"57%"})
+  .to($(".q3"), {color: "white", textShadow: "2px 2px black"})
   .addPause()
-  .to($('.progress-bar'), 0.3, {width:"50%"})
-  .to($(".q4"), {background: "black"})
+  .to($('.progress-bar'), 0.3, {width:"44%"})
+  .to($(".q4"), {color: "white", textShadow: "2px 2px black"})
   .addPause()
-  .to($('.progress-bar'), 0.3, {width:"63%"})
-  .to($(".q5"), {background: "black"})
+  .to($('.progress-bar'), 0.3, {width:"30%"})
+  .to($(".q5"), {color: "white", textShadow: "2px 2px black"})
   .addPause()
-  .to($('.progress-bar'), 0.3, {width:"75%"})
-  .to($(".q6"), {background: "black"})
+  .to($('.progress-bar'), 0.3, {width:"18%"})
+  .to($(".q6"), {color: "white", textShadow: "2px 2px black"})
   .addPause()
-  .to($('.progress-bar'), 0.3, {width:"87%"})
-  .to($(".q7"), {background: "black"});
-
+  .to($('.progress-bar'), 0.3, {width:"0"})
+  .to($(".q7"), {color: "white", textShadow: "2px 2px black"});
 
 
 const imagesArr = [
@@ -39,7 +38,7 @@ const responseArr = [
   "Well, that isn't what I would've picked.",
   "Are you sure you know what you are doing?",
   "Fun, this is going to be fun..."
-]
+];
 
 const questionSTORE = [
     {
@@ -81,43 +80,55 @@ const questionSTORE = [
 
 const answerSTORE = [
     {
-        class: "Cleric",
+        rpgClass: "Cleric",
         value: 0
     },
     {
-        class: "Fighter",
+        rpgClass: "Fighter",
         value:  0
     },
     {
-        class: "Rouge",
+        rpgClass: "Rouge",
         value : 0
     },
     {
-        class: "Wizard",
+        rpgClass: "Wizard",
         value : 0
     }
-]
+];
 
 function generateQuestion(obj,index) {
-    return `
-            <label for="answers" class="question">${obj[index]["question"]}</label><br>
-            <input type="radio" name="question" value="${obj[index]["values"][0]}">${obj[index]["answers"][0]}<br>
-            <input type="radio" name="question" value="${obj[index]["values"][1]}">${obj[index]["answers"][1]}<br>
-            <input type="radio" name="question" value="${obj[index]["values"][2]}">${obj[index]["answers"][2]}<br>
-            <input type="radio" name="question" value="${obj[index]["values"][3]}">${obj[index]["answers"][3]}<br>
+    return `<fieldset>
+            <legend class="question">${obj[index]["question"]}</legend>
+            <div>
+            <input id="a1" type="radio" name="question" value="${obj[index]["values"][0]}"><label for="a1">${obj[index]["answers"][0]}</label>
+            </div>
+            <div>
+            <input type="radio" name="question" value="${obj[index]["values"][1]}">
+            <label for="a2">${obj[index]["answers"][1]}</label>
+            </div>
+            <div>
+            <input type="radio" name="question" value="${obj[index]["values"][2]}">
+            <label for="a3">${obj[index]["answers"][2]}</label>
+            </div>
+            <div>
+            <input type="radio" name="question" value="${obj[index]["values"][3]}">
+            <label for="a4">${obj[index]["answers"][3]}</label>
+            </div>
             <button type="submit" class="submit-btn">Submit</button>
+            </fieldset>
+            
         `;
+  
 }
 
 //submit answer
-function submitQuestion() {
+function submitQuestionHandler() {
     $(".questions").submit(function(e) {
         e.preventDefault();
         let input = $('input:checked').val();
         updateScore(answerSTORE, input);
         updateProgress();
-        provideFeedback(imagesArr, responseArr);
-        
     });
 }
 
@@ -126,29 +137,33 @@ function updateProgress() {
   
   if(questionCount >= questionSTORE.length-1) {
     questionCount = 0;
+    calcResult(answerSTORE);
     
   } else {
     questionCount++;
+    provideFeedback(imagesArr, responseArr);
   }
   
 }
 
 function provideFeedback(arr1, arr2) {
-  let imgIndex = Math.round(Math.random());
-  let responseIndex = Math.floor(Math.random() * ((arr2.length-1)-0+1));
+  const imgIndex = Math.round(Math.random());
+  const responseIndex = Math.floor(Math.random() * ((arr2.length-1)-0+1));
 
-  feedback.append(`<img class="dm-img" src="${arr1[imgIndex]}" alt="feedback image">
+  feedback.html(`<div class="feedback-inner"><img class="dm-img" src="${arr1[imgIndex]}" alt="feedback image">
         <div class="feedback-text"><p>${arr2[responseIndex]}</p></div>
-        <button type="button" class="next-question" onClick="nextQuestion()">Next Question</button>`);
+        <button type="button" class="next-question">Next Question</button></div>`);
   feedback.show();
 }
 
-function nextQuestion() {
-  renderQuiz(questionSTORE,questionCount);
-  feedback.hide();
-  feedback.html('');
-  progressTL.play();
-
+function nextQuestionHandler() {
+  $('.feedback-popup').on('click', '.next-question', function(e){
+    renderQuiz(questionSTORE,questionCount);
+    feedback.hide();
+    feedback.html('');
+    progressTL.play();
+    
+  });
 }
 
 function updateScore(obj,ind) {
@@ -156,67 +171,88 @@ function updateScore(obj,ind) {
     
 }
 
+function calcResult(obj) {
+  
+  let largest = obj[0].value;
+  let result = "";
+  for (let i = 0; i < obj.length; i++) {
+     if(largest > obj[i].value) {
+        
+      } else {
+        largest = obj[i].value;
+        result = obj[i].rpgClass;
+    }
+
+  }
+  
+  displayResults(result);
+}
+
+function resetResult(obj,num) {
+  for (let i = 0; i < obj.length; i++) {
+     obj[i].value = 0;
+  }
+  num = 0;
+}
+
+function displayResults(str) {
+  let img = str.toLowerCase()+".png";
+  results.append(`<div class="results-inner"><img src="/images/${img}" alt="results image">
+        <p class="results-feedback">Your Fantasy RPG class is: ${str}</p>
+        <button type="button" class="restart-quiz">Take Quiz Again?</button></div>`);
+    results.show();
+  }
+
+function restartQuizHandler() {
+  $('.results-container').on('click', '.restart-quiz', function(e) {
+    console.log("Initiate restart");
+      resetResult(answerSTORE, questionCount);
+      startQuiz();
+  });
+}
+
 //render quiz
 function renderQuiz(obj, ind) {
     let quizContainer = $('.questions');
     quizContainer.html('');
     quizContainer.append(generateQuestion(obj, ind));
+    TweenMax.staggerFrom([$('.question'),$('input'), $('label')], 0.3, {autoAlpha:0, xPercent: -10},0.2);
+}
+
+function startQuizHandler() {
+  $('.start-quiz-container').on('click', '.start-quiz', function(e){
+    e.preventDefault();
+    $('.start-quiz-container').hide();
+    startQuiz();
+  })
+}
+
+function startQuiz() {
+    clearContainers();
+    progressTL.play(0);
+    renderQuiz(questionSTORE, questionCount);
+}
+
+function clearContainers() {
+    feedback.hide();
+    results.hide();
+    feedback.html('');
+    results.html('');
 }
 
 function initQuiz(){
-    feedback.hide();
-    results.hide();
-    renderQuiz(questionSTORE, questionCount);
-    progressTL.play(0);
-    submitQuestion();
-    
+    clearContainers();
+    startQuizHandler();
+    submitQuestionHandler();
+    nextQuestionHandler();
+    restartQuizHandler();
 }
+  
+
+  
+
+
 
 $(initQuiz);
 
 
-/*var obj = [
-    {
-        class: "Cleric",
-        value: 1
-    },
-    {
-        class: "Fighter",
-        value:  0
-    },
-    {
-        class: "Rouge",
-        value : 5
-    },
-    {
-        class: "Wizard",
-        value : 0
-    }
-];
-function calcResult(obj) {
-  let largest = obj[0].value;
-  let result = "";
-  for (i = 0; i < obj.length-1; i++) {
-
-    for(j = 1; j < obj.length-1; j++) {
-    
-      if(largest > obj[j].value) {
-        
-      } else {
-        largest = obj[j].value;
-        result = obj[j].class;
-      }
-    }
-
-  displayResults(result);
-}
-
-function displayResults(str) {
-  let img = str.toLowerCase()+".png";
-  results.append(`<img src="/images/${img}" alt="results image">
-        <p class="results-feedback">Your Fantasy RPG class is: ${str}</p>
-        <button type="button" class="start-quiz">Take Quiz Again?</button>`);
-}
-
-  
-}*/
