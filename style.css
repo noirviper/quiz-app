@@ -190,3 +190,10 @@ button:hover {background: #b78846; transition: all 0.3s}
 .dm-img {max-width: 100%;}
 .results-inner img {max-width: 220px; max-height: 400px;}
 
+@media (max-width: 500px) {
+  h1 {font-size: 1.2rem;}
+  .questions legend {font-size: 1rem}
+  .questions label,a,p,button {font-size: 0.9rem;}
+  
+}
+
