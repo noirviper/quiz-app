@@ -122,7 +122,6 @@ function generateQuestion(obj,index) {
   
 }
 
-//submit answer
 function submitQuestionHandler() {
     $(".questions").submit(function(e) {
         e.preventDefault();
@@ -132,7 +131,6 @@ function submitQuestionHandler() {
     });
 }
 
-//update question user is on
 function updateProgress() {
   
   if(questionCount >= questionSTORE.length-1) {
@@ -201,17 +199,16 @@ function displayResults(str) {
         <p class="results-feedback">Your Fantasy RPG class is: ${str}</p>
         <button type="button" class="restart-quiz">Take Quiz Again?</button></div>`);
     results.show();
-  }
+}
 
 function restartQuizHandler() {
   $('.results-container').on('click', '.restart-quiz', function(e) {
-    console.log("Initiate restart");
+    
       resetResult(answerSTORE, questionCount);
       startQuiz();
   });
 }
 
-//render quiz
 function renderQuiz(obj, ind) {
     let quizContainer = $('.questions');
     quizContainer.html('');
