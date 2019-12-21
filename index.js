@@ -197,7 +197,7 @@ function resetResult(obj,num) {
 
 function displayResults(str) {
   let img = str.toLowerCase()+".png";
-  results.append(`<div class="results-inner"><img src="/images/${img}" alt="results image">
+  results.append(`<div class="results-inner"><img src="images/${img}" alt="results image">
         <p class="results-feedback">Your Fantasy RPG class is: ${str}</p>
         <button type="button" class="restart-quiz">Take Quiz Again?</button></div>`);
     results.show();
