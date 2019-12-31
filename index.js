@@ -1,118 +1,96 @@
 "use strict";
 let questionCount = 0;
+let score = 0;
 let submitBtn = $('.submit-btn');
 let feedback = $('.feedback-popup');
 let results = $('.results-container');
 let progressTL = gsap.timeline({paused:true});
+let scoreTL = gsap.timeline({paused: true});
+
 
 progressTL
-  .to($('.progress-bar'), 0.3, {width:"83%", delay:1.5})
-  .to($(".q1"), {color: "white", textShadow: "2px 2px black"})
-  .addPause()
-  .to($('.progress-bar'), 0.3, {width:"68%"})
-  .to($(".q2"), {color: "white", textShadow: "2px 2px black"})
-  .addPause()
-  .to($('.progress-bar'), 0.3, {width:"57%"})
-  .to($(".q3"), {color: "white", textShadow: "2px 2px black"})
-  .addPause()
-  .to($('.progress-bar'), 0.3, {width:"44%"})
-  .to($(".q4"), {color: "white", textShadow: "2px 2px black"})
-  .addPause()
-  .to($('.progress-bar'), 0.3, {width:"30%"})
-  .to($(".q5"), {color: "white", textShadow: "2px 2px black"})
-  .addPause()
-  .to($('.progress-bar'), 0.3, {width:"18%"})
-  .to($(".q6"), {color: "white", textShadow: "2px 2px black"})
-  .addPause()
-  .to($('.progress-bar'), 0.3, {width:"0"})
-  .to($(".q7"), {color: "white", textShadow: "2px 2px black"});
+    .from($('.bg-red, .bg-blue'), 0.3, {scaleY:0})
+    .addPause()
+    .to($('.bg-red'), 0.3, {scaleY:0.3, scaleX:0.8})
+    .addPause()
+    .to($('.bg-red'), 0.3, {scaleY:0.5, scaleX:1})
+    .addPause()
+    .to($('.bg-red'), 0.3, {scaleY:0.6, scaleX:1})
+    .addPause()
+    .to($('.bg-red'), 0.3, {scaleY:0.7, scaleX:1})
+    .addPause()
+    .to($('.bg-red'), 0.3, {scaleY:0.8, scaleX:1})
+    .addPause()
+    .to($('.bg-red'), 0.3, {scaleY:1, scaleX:1});
 
-
-const imagesArr = [
-  "images/dm.jpg",
-  "images/evil-dm.jpg"
-];
-
-const responseArr = [
-  "Hmmmm, interesting choice. I will have to keep an eye on you",
-  "Well, that isn't what I would've picked.",
-  "Are you sure you know what you are doing?",
-  "Fun, this is going to be fun..."
-];
+scoreTL
+    .to($('.bg-blue'), 0.3, {scaleY:0.3, scaleX:0.8}, "1")
+    .addPause()
+    .to($('.bg-blue'), 0.3, {scaleY:0.5, scaleX:1}, "2")
+    .addPause()
+    .to($('.bg-blue'), 0.3, {scaleY:0.6, scaleX:1}, "3")
+    .addPause()
+    .to($('.bg-blue'), 0.3, {scaleY:0.7, scaleX:1}, "4")
+    .addPause()
+    .to($('.bg-blue'), 0.3, {scaleY:0.8, scaleX:1}, "5")
+    .addPause()
+    .to($('.bg-blue'), 0.3, {scaleY:0.9, scaleX:1}, "6");
 
 const questionSTORE = [
     {
-        "question" : "Which of these would be an ideal weekend activity?",
-        "values" : [0, 2, 1, 3],
-        "answers" : ["Go to Church","Plan a huge heist","Workout and practice MMA techniques","Study"]
+        "question" : "What is an initiative roll?",
+        "answers" : ["A baked good","A dice roll to start combat","A check to see if you succeed or fail","This isn't a thing in D&D"],
+        "correct" : "A dice roll to start combat"
     },
     {
-        "question" : "Out of these options what would your dream job be?",
-        "values" : [0, 1, 2, 3],
-        "answers" : ["Medical profesional who heals people","Join the military","Locksmith","A mad scientist"]
+        "question" : "What dice do you roll for an attack?",
+        "answers" : ["D6","D8","D10","D20"],
+        "correct" : "D20"
     },
     {
-        "question" : "Which of these activities would you most enjoy?",
-        "values" : [2, 3, 1, 0],
-        "answers" : ["Hide and seek","Chess","Capture the flag","Bible study"]
+        "question" : "What does it mean to have disadvantage?",
+        "answers" : ["You play with a blindfold","You roll 2 D20s and take the lower value","You roll all the dice","None of the above"],
+        "correct" : "You roll 2 D20s and take the lower value"
     },
     {
-        "question" : "Choose one of the following:",
-        "values" : [2, 3, 1, 0],
-        "answers" : ["Shadow","Fire","Steel","Light"]
+        "question" : "What stat affects a Wizard's spell casting?",
+        "answers" : ["Strength","Dexterity","Wisdom","Intelligence"],
+        "correct" : "Intelligence"
     },
     {
-        "question" : "You are forced into a fight, what is your strategy?",
-        "values" : [2, 1, 3, 0],
-        "answers" : ["Stab them in the back","Find the nearest weapon and get to work","Light everything on fire","Pray for divine intervention"]
+        "question" : "You want to woo a dragon, which class is best suited for this task?",
+        "answers" : ["A Paladin","A Warlock","A Bard","A Rouge"],
+        "correct" : "A Bard"
     },
     {
-        "question" : "A monster jumps out of the shadows, you draw your weapon. What is it?",
-        "values" : [1, 3, 0, 2],
-        "answers" : ["A sword","A spell book","A mace","A dagger"]
+        "question" : "Who created D&D?",
+        "answers" : ["Gary Gygax & Dave Arneson","Jason Bulmahn","Mike Pondsmith","Mark Rein-Hagen"],
+        "correct" : "Gary Gygax & Dave Arneson"
     },
     {
-        "question" : "What is your character flaw?",
-        "values" : [2, 0, 3, 1],
-        "answers" : ["You are a kleptomaniac","You rely too much on your faith","You think you know everything","You are quick to start a fight"]
+        "question" : "Which D&D races can see in the dark?",
+        "answers" : ["Elves","Dwarves","Gnomes","All of the above"],
+        "correct" : "All of the above"
     }
 ];
 
-const answerSTORE = [
-    {
-        rpgClass: "Cleric",
-        value: 0
-    },
-    {
-        rpgClass: "Fighter",
-        value:  0
-    },
-    {
-        rpgClass: "Rouge",
-        value : 0
-    },
-    {
-        rpgClass: "Wizard",
-        value : 0
-    }
-];
 
 function generateQuestion(obj,index) {
     return `<fieldset>
             <legend class="question">${obj[index]["question"]}</legend>
             <div>
-            <input id="a1" type="radio" name="question" value="${obj[index]["values"][0]}"><label for="a1">${obj[index]["answers"][0]}</label>
+            <input id="a1" type="radio" name="question" value="${obj[index]["answers"][0]}"><label for="a1">${obj[index]["answers"][0]}</label>
             </div>
             <div>
-            <input type="radio" name="question" value="${obj[index]["values"][1]}">
+            <input type="radio" name="question" value="${obj[index]["answers"][1]}">
             <label for="a2">${obj[index]["answers"][1]}</label>
             </div>
             <div>
-            <input type="radio" name="question" value="${obj[index]["values"][2]}">
+            <input type="radio" name="question" value="${obj[index]["answers"][2]}">
             <label for="a3">${obj[index]["answers"][2]}</label>
             </div>
             <div>
-            <input type="radio" name="question" value="${obj[index]["values"][3]}">
+            <input type="radio" name="question" value="${obj[index]["answers"][3]}">
             <label for="a4">${obj[index]["answers"][3]}</label>
             </div>
             <button type="submit" class="submit-btn">Submit</button>
@@ -126,7 +104,7 @@ function submitQuestionHandler() {
     $(".questions").submit(function(e) {
         e.preventDefault();
         let input = $('input:checked').val();
-        updateScore(answerSTORE, input);
+        updateScore(questionSTORE, input, questionCount);
         updateProgress();
     });
 }
@@ -135,24 +113,17 @@ function updateProgress() {
   
   if(questionCount >= questionSTORE.length-1) {
     questionCount = 0;
-    calcResult(answerSTORE);
+    
     
   } else {
     questionCount++;
-    provideFeedback(imagesArr, responseArr);
+    $('.current-prog .num').text(`${questionCount+1}/${questionSTORE.length}`)
+    
   }
   
 }
 
-function provideFeedback(arr1, arr2) {
-  const imgIndex = Math.round(Math.random());
-  const responseIndex = Math.floor(Math.random() * ((arr2.length-1)-0+1));
 
-  feedback.html(`<div class="feedback-inner"><img class="dm-img" src="${arr1[imgIndex]}" alt="feedback image">
-        <div class="feedback-text"><p>${arr2[responseIndex]}</p></div>
-        <button type="button" class="next-question">Next Question</button></div>`);
-  feedback.show();
-}
 
 function nextQuestionHandler() {
   $('.feedback-popup').on('click', '.next-question', function(e){
@@ -160,51 +131,79 @@ function nextQuestionHandler() {
     feedback.hide();
     feedback.html('');
     progressTL.play();
+    scoreTL.play(score);
     
   });
 }
 
-function updateScore(obj,ind) {
-    obj[ind].value += 1;
+function updateScore(obj, str, num) {
+    if (str == obj[num].correct) {
+        score += 1;
+        $('.score .num').text(`${score}/${questionSTORE.length}`);
+        provideFeedback("correct", questionSTORE);
+    } else {
+        provideFeedback("incorrect", questionSTORE)
+    }
+    
     
 }
 
-function calcResult(obj) {
-  
-  let largest = obj[0].value;
-  let result = "";
-  for (let i = 0; i < obj.length; i++) {
-     if(largest > obj[i].value) {
-        
-      } else {
-        largest = obj[i].value;
-        result = obj[i].rpgClass;
+function provideFeedback(str,obj) {
+    if (str == "correct" && questionSTORE.length-1 > questionCount) {
+      feedback.html(`<div class="feedback-inner"><img class="dm-img" src="images/dm.jpg" alt="feedback image">
+      <div class="feedback-text"><p>You Are Correct!</p></div>
+      <button type="button" class="next-question">Next Question</button></div>`);
+      feedback.show(); 
+    } else if (str == "incorrect" && questionSTORE.length-1 > questionCount) {
+      feedback.html(`<div class="feedback-inner"><img class="dm-img" src="images/evil-dm.jpg" alt="feedback image">
+      <div class="feedback-text"><p>You have offended the Dungeon Master with an incorrect answer</p></div>
+      <div class="feedback-text"><p>The CORRECT ANSWER WAS: ${obj[questionCount].correct}</p></div>
+      <button type="button" class="next-question">Next Question</button></div>`);
+  feedback.show();
+    } else {
+        displayResults(score);
     }
-
-  }
   
-  displayResults(result);
-}
-
-function resetResult(obj,num) {
-  for (let i = 0; i < obj.length; i++) {
-     obj[i].value = 0;
+    
   }
-  num = 0;
+
+function resetResult() {
+  score = 0
 }
 
-function displayResults(str) {
-  let img = str.toLowerCase()+".png";
-  results.append(`<div class="results-inner"><img src="images/${img}" alt="results image">
-        <p class="results-feedback">Your Fantasy RPG class is: ${str}</p>
+function displayResults(num) {
+  if(num == questionSTORE.length) {
+    results.append(`<div class="results-inner"><img src="images/dm.jpg" alt="results image">
+        <h3 class="results-feedback">Your Are The Ultimate Dungeon Master!!!</h3>
+        <h4>${score}/${questionSTORE.length}</h4>
         <button type="button" class="restart-quiz">Take Quiz Again?</button></div>`);
     results.show();
+  } else if (num > 4) {
+    results.append(`<div class="results-inner"><img src="images/dm.jpg" alt="results image">
+    <h3 class="results-feedback">Your Are An Adequate Dungeon Master</h3>
+    <h4>${score}/${questionSTORE.length}</h4>
+    <button type="button" class="restart-quiz">Take Quiz Again?</button></div>`);
+results.show();
+  } else if (num > 0 && num <= 4) {
+    results.append(`<div class="results-inner"><img src="images/evil-dm.jpg" alt="results image">
+    <h3 class="results-feedback">Your Dungeon Master Knowledge Needs Some Work...</h3>
+    <h4>${score}/${questionSTORE.length}</h4>
+    <button type="button" class="restart-quiz">Take Quiz Again?</button></div>`);
+results.show();
+  } else {
+    results.append(`<div class="results-inner"><img src="images/evil-dm.jpg" alt="results image">
+    <h3 class="results-feedback">Your Should Be Ashamed!</h3>
+    <h4>${score}/${questionSTORE.length}</h4>
+    <button type="button" class="restart-quiz">Take Quiz Again?</button></div>`);
+results.show();
+  }
+
+  
 }
 
 function restartQuizHandler() {
   $('.results-container').on('click', '.restart-quiz', function(e) {
-    
-      resetResult(answerSTORE, questionCount);
+      resetResult();
       startQuiz();
   });
 }
@@ -213,7 +212,7 @@ function renderQuiz(obj, ind) {
     let quizContainer = $('.questions');
     quizContainer.html('');
     quizContainer.append(generateQuestion(obj, ind));
-    TweenMax.staggerFrom([$('.question'),$('input'), $('label')], 0.3, {autoAlpha:0, xPercent: -10},0.2);
+    
 }
 
 function startQuizHandler() {
@@ -227,10 +226,13 @@ function startQuizHandler() {
 function startQuiz() {
     clearContainers();
     progressTL.play(0);
+    $('.current-prog .num').text(`${questionCount+1}/${questionSTORE.length}`);
+    $('.score .num').text(`${score}/${questionSTORE.length}`);
     renderQuiz(questionSTORE, questionCount);
 }
 
 function clearContainers() {
+    TweenMax.set($('.bg-red, .bg-blue'),{scaleX:0.8, scaleY:0.2, translateX:"-50%",transformOrigin: "50% 90%"});
     feedback.hide();
     results.hide();
     feedback.html('');

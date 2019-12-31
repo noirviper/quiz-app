@@ -4,7 +4,8 @@
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width">
     <meta name="description" content="A quiz app to determine your RPG class.">
-    <title>What Fantasy RPG Class Are You</title>
+    <link rel="icon" href="images/dnd-logo.png">
+    <title>Are You A Dungeon Master?</title>
     <link href="https://fonts.googleapis.com/css?family=Almendra+SC|Cardo&display=swap" rel="stylesheet">
     <link href="style.css" rel="stylesheet" type="text/css" />
   </head>
@@ -13,19 +14,22 @@
       <div class="logo-container">
         <img src="images/dnd-logo.png" alt="logo" />
       </div>
-      <h1>What Fantasy RPG Class Are You?</h1>
+      <h1>Are You A Dungeon Master?</h1>
     </header>
     <main role="main">
       <section class="progress-container">
-        
-        <div class="progress-bar"></div>
-        <span class="circle q1">1</span>
-        <span class="circle q2">2</span>
-        <span class="circle q3">3</span>
-        <span class="circle q4">4</span>
-        <span class="circle q5">5</span>
-        <span class="circle q6">6</span>
-        <span class="circle q7">7</span>
+        <div class="current-prog">
+          <h3>Questions</h3>
+          <div class="bg bg-red"></div>
+          <img src='images/potion-bottle.png' alt="potion bottle">
+          <div class="num"></div>
+        </div>
+        <div class="score">
+          <h3>Score</h3>
+          <div class="bg bg-blue"></div>
+          <img src='images/potion-bottle.png' alt="potion bottle">
+          <div class="num"></div>
+        </div>
       </section>
       <section class="question-container">
         <form class="questions">
